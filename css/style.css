@@ -1,0 +1,154 @@
+
+
+body {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+h3 {
+    display: inline-block;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+h4 {
+    position: absolute;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 0;
+}
+
+.tictactoe {
+    box-sizing: border-box;
+    width: 630px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 30px;
+    border: 1px solid grey;
+    padding: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.tttsquares {
+    margin: -2.4px;
+    margin-bottom: 1.5px;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    box-sizing: border-box;
+    border: none;
+}
+
+.circle {
+    background: url('https://i.imgur.com/6Ug5Ywq.png');
+    box-sizing: border-box;
+    background-size: 170px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.cross {
+    background: url('https://i.imgur.com/nS6YCoH.png') no-repeat;
+    box-sizing: border-box;
+    background-size: 170px;
+    position: relative;
+    background-position: center;
+}
+
+
+.fifth {
+    border: 5px solid black;
+}
+
+.fourth, .sixth {
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+}
+
+.second, .eighth {
+    border-left: 5px solid black;
+    border-right: 5px solid black;
+}
+
+#again {
+    display: none;
+    margin: 0;
+    height: 5px;
+    width: 10px;
+}
+
+.h {
+    background: url('https://i.imgur.com/Fc12SpE.jpg');
+    background-size: cover;
+    height: 15px;
+    width: 5px;
+    position: absolute;
+    z-index: 1;
+    margin-top: 92px;
+    display: none;
+    border: 4px solid white;
+    transition: 2s all;
+}
+
+.two {
+    margin-top: 280px;
+    display: none;
+}
+
+.three {
+    margin-top: 480px;
+    display: none;
+}
+
+.v {
+    background: url('https://i.imgur.com/Fc12SpE.jpg');
+    background-size: cover;
+    height: 5px;
+    width: 15px;
+    position: absolute;
+    z-index: 1;
+    margin-left: 100px;
+    margin-top: -10px;
+    display: none;
+    border: 4px solid white;
+}
+
+.five {
+    margin-left: 305px;
+    display: none;
+}
+
+.six {
+    margin-left: 500px;
+    display: none;
+}
+
+.seven {
+    height: 5px;
+    transform: rotate(45deg);
+    transform-origin: left;
+    margin-left: 580px;
+    margin-top: 15px;
+    display: none;
+}
+
+.eight {
+    height: 5px;
+    transform: rotate(135deg);
+    transform-origin: left;
+    margin-left: 50px;
+    margin-top: 15px;
+    display: none;
+}
+
+.reset {
+    margin: 20px;
+}

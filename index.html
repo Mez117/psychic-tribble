@@ -4,8 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jQuery.js"></script>
+    <script src="js/tictactoe.js"></script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <header>
+        <h1>Tic Tac Toe version 1</h1>
+        <button class="player" id="cross">Cross</button>
+        <input class="custom a" type="text" placeholder="enter a name or image">
+        <button class="player" id="circle">Circle</button>
+        <input class="custom b" type="text" placeholder="enter a name or image">
+        
+        <h2>_________</h2>
+        <h3 id="crwins">Cross' wins: 0</h3>
+        <button class="reset" id="again">Play again</button>
+        <h3 id="ciwins">Circle's wins: 0</h3>
+
+    </header>
+    <div class="container">
+
+        <div class="tictactoe">
+
+            <div class="h line one"></div>
+            <div class="h line two"></div>
+            <div class="h line three"></div>
+            <div class="v line four"></div>
+            <div class="v line five"></div>
+            <div class="v line six"></div>
+            <div class="v line seven"></div>
+            <div class="v line eight"></div>
+            <button class="tttsquares first hor1 ver1" id="first"></button>
+            <button class="tttsquares second hor1 ver2 " id="second"></button>
+            <button class="tttsquares third hor1 ver3" id="third"></button>
+            <button class="tttsquares fourth hor2 ver1" id="fourth"></button>
+            <button class="tttsquares fifth hor2 ver2" id="fifth"></button>
+            <button class="tttsquares sixth hor2 ver3" id="sixth"></button>
+            <button class="tttsquares seventh hor3 ver1" id="seventh"></button>
+            <button class="tttsquares eighth hor3 ver2" id="eighth"></button>
+            <button class="tttsquares nineth hor3 ver3" id="nineth"></button>
+
+        </div>
+
+        <button class="reset" id="fullreset">Reset game</button>
+
+    </div>
 </body>
 </html>
+
+<!-- PLAN
+
+HTML:
+    1. create a simple title for now, I can add stuff later to make the page look better
+    2. create a div named container that will include the game and game elements
+    3. create a div that will include the tic tac toe game (both interactively and visually)
+    4. inside that div create 9 seperate square divs (3x3)
+    5. assing a value to all 9 divs that when called will act as a button (clicking the div)
+    5. give each div a shared classname and different IDs (I will refer to these 9 divs as tttsquares for now)
+
+CSS:
+    1. style the body to be centered and give it a width
+    2. style the tictactoe div to have an equal width and height (e.g 800px)
+    3. style each of the tttsquares to be square and fit evenly inside the tictactoe div (use inline block)
+    4. create a style which will give a div the background of a cross if that class is applied (i.e .cross)
+    5. repeat that style for a class which has the background of a circle if class .circle is applied
+
+JS:
+    1. for now, create the barebones that do not yet interact with the DOM but will allow us to manipulate the values later
+    2. create an object which has all the individual IDs of tttsquares
+    3. give all the tttsquares an empty string (e.g. firstSquare: '', secondSquare: '', etc...)
+    4. give a value of playerTurn: 0,
+    5. create a function that will assign the variable x = player choice, else 1. o = player choice, else 1
+    4. create a function that when called will check the arguments of both the ID of the button and the playerTurn to see whos turn it is and what background to apply.
+    5. inside that function have an if x % 2 === 0, ''square.className('cross')
+    if x % 1 === 0, ''square.className('cross')
+    if o % 2 === 0, ''square.className('circle')
+    if x % 1 === 0, ''square.className('circle')
+-->
