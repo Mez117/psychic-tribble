@@ -1,8 +1,8 @@
 $(document).ready(function () {
     tTT = {
         squareNum: ['.first', '.second', '.third', '.fourth', '.fifth', '.sixth', '.seventh', '.eighth', '.nineth'],
-        lineClass: ['.one', '.two', '.three', '.four', '.five', '.six', '.seven', '.eight'],
-        boxLine: ['.hor1', '.hor2', '.hor3', '.ver1', '.ver2', '.ver3', '.dia1', '.dia2'],
+        // lineClass: ['.one', '.two', '.three', '.four', '.five', '.six', '.seven', '.eight'],
+        // boxLine: ['.hor1', '.hor2', '.hor3', '.ver1', '.ver2', '.ver3', '.dia1', '.dia2'],
         playerTurn: 0,
         x: 0,
         cr: 0,
@@ -22,7 +22,7 @@ $(document).ready(function () {
                     $('.eight').show().animate({height: '800px', marginLeft: '330px', marginTop: '-105px'}, 1300);
                 }
                 if (line === '.seven') {
-                    $('.seven').show().animate({height: '800px', marginLeft: '300px', marginTop: '-105px'}, 1300);
+                    $('.seven').show().animate({height: '800px', marginLeft: '294px', marginTop: '-105px'}, 1300);
                 }
                 $('.tttsquares').prop('disabled', true);
                 // $('h2').html(`Game over, ${ obj } won`);
@@ -168,7 +168,7 @@ $(document).ready(function () {
         $(this).hide();
         tTT.squareResult(this);  
         if ($('.a').val() !== '' && $(this).hasClass('cross')) {
-            $('.cross').css('background', 'none');
+            $('.cross').css('background-image', "none");
             text = $('<h4></h4>').text($('.a').val());
             $(this).html(text);
         };
@@ -186,6 +186,8 @@ $(document).ready(function () {
     $('.reset').on('click', function () {
         enable(0, true);
         enable(1, false);
+        // $('.cross').css('background-image', "url('https://i.imgur.com/6Ug5Ywq.png')");
+        // $('.circle').css('background', "url('https://i.imgur.com/6Ug5Ywq.png')");
         $('.tttsquares').removeClass('cross');
         $('.tttsquares').removeClass('circle');
         $('h2').html('_________');
@@ -205,6 +207,8 @@ $(document).ready(function () {
     $('#fullreset').on('click', function () {
         $('#crwins').html("Cross' wins: 0")
         $('#ciwins').html("Circle's wins: 0")
+        tTT.cr = 0;
+        tTT.ci = 0;
     })
 
 
