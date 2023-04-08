@@ -1,181 +1,127 @@
 $(document).ready(function () {
     tTT = {
-        squareNum: ['.first', '.second', '.third', '.fourth', '.fifth', '.sixth', '.seventh', '.eighth', '.nineth'],
-        // lineClass: ['.one', '.two', '.three', '.four', '.five', '.six', '.seven', '.eight'],
-        // boxLine: ['.hor1', '.hor2', '.hor3', '.ver1', '.ver2', '.ver3', '.dia1', '.dia2'],
+        playerSquareResults: {1: [0, 0], 2:[0, 0], 3:[0, 0], 4:[0, 0], 5:[0, 0], 6:[0, 0], 7:[0, 0], 8:[0, 0] },
         playerTurn: 0,
         x: 0,
-        cr: 0,
-        ci: 0,
+        y: 0,
+        winner: {0: ['cross', 0], 1: ['circle', 0]},
         firstTurn: '',
         secondTurn: '',
+        shape: '',
+        customName: ['cross', 'circle'],
+        buttonName: '',
 
-        rowCheck: function (line, s1, s2, s3, obj) {
-            if ($(s1).hasClass(obj) && $(s2).hasClass(obj) && $(s3).hasClass(obj)) {
-                if (line === '.one' || line === '.two' || line === '.three') {
-                    $(line).show().animate({width: '630px'}, 5);
-                }
-                if (line === '.four' || line === '.five' || line === '.six') {
-                    $(line).show().animate({height: '630px'}, 2000);
-                }
-                if (line === '.eight') {
-                    $('.eight').show().animate({height: '800px', marginLeft: '330px', marginTop: '-105px'}, 1300);
-                }
-                if (line === '.seven') {
-                    $('.seven').show().animate({height: '800px', marginLeft: '294px', marginTop: '-105px'}, 1300);
-                }
-                $('.tttsquares').prop('disabled', true);
-                // $('h2').html(`Game over, ${ obj } won`);
-                $('#again').show();
-                $('#again').animate({height: '30px', width: '100px', margin: '10px'}, 2000);
-                if (obj === 'cross') {
-                    this.cr += 1;
-                    let whoWon = this.firstTurn.split("'")[0];
-                    wins = whoWon + " wins: " + this.cr;
-                    $('h2').html(`Game over, ${ whoWon } won`);
-                    $('#crwins').html(wins);
-                } if (obj === 'circle') {
-                    this.ci += 1;
-                    let whoWon = this.secondTurn.split("'")[0];
-                    wins = whoWon + " wins: " + this.ci;
-                    $('h2').html(`Game over, ${ whoWon } won`);
-                    $('#ciwins').html(wins);
-                }
+        determineTurnName: function (firstPlayer, secondPlayer, buttonPressed, num) {
+            if ($(firstPlayer).val() === '') {
+                this.firstTurn = "it's your turn " + $(buttonPressed).attr('id');
+                firstHTML = $(buttonPressed).attr('id') + ' wins: ' + this.winner[num][1];    
+            } else {
+                this.firstTurn = "it's your turn " + $(firstPlayer).val();
+                firstHTML = $(firstPlayer).val() + ' wins: ' + this.winner[num][1];
+                this.customName[num] = $(firstPlayer).val();
             }
+            let winID = '#' + $(buttonPressed).attr('id') + 'wins'
+            $(winID).html(firstHTML);
+            $('h2').html(this.firstTurn);
+
+            if ($(buttonPressed).attr('id') == 'cross') {this.shape = 'circle'} else {this.shape = 'cross'};
+
+            if ($(secondPlayer).val() === '') {
+                this.secondTurn = "it's your turn " + this.shape;
+                secondHTML = this.shape + ' wins: ' + this.winner[this.x][1]; 
+            } else {
+                this.secondTurn = "it's your turn " + $(secondPlayer).val();
+                secondHTML = $(secondPlayer).val() + ' wins: ' + this.winner[this.x][1];
+                this.customName[this.x] = $(secondPlayer).val();
+            }
+            let winTwoID = '#' + this.shape + 'wins'
+            $(winTwoID).html(secondHTML);
+            this.x = 0;
         },
 
-        squareResult: function (div) {
-            if ($('.b').val() === '') {
-                this.secondTurn = ("Circle's turn");
-                $('h2').html(tTT.secondTurn);
+        rowCheck: function (iD, playerTurn, div) {
+            this.x += 1;
+            let checkURL = this.customName[playerTurn].slice(-3);
+            console.log(checkURL)
+            $(div).addClass(this.winner[playerTurn][0]);
+            if (this.customName[playerTurn] !== 'circle' && this.customName[playerTurn] !== 'cross') {
+                removal = '.' + this.winner[playerTurn][0];
+                if (checkURL !== 'jpg' && checkURL !== 'png' && checkURL !== 'gif' && checkURL !== 'peg') {
+                    $(removal).css('background', 'none');
+                    $('<h4>' + this.customName[playerTurn] + '</h4>').appendTo(div);
+                } else {
+                    $(removal).css('background', `url("${this.customName[playerTurn]}") no-repeat center`);
+                    $(removal).css('background-size', '180px');
+                }
             }
-            else { 
-                turn = $('.b').val() + "'s turn";
-                this.secondTurn = turn;
-                $('h2').html(turn);
-                ciwin = $('.b').val() + "'s wins: " + tTT.ci;
-                $('#ciwins').html(ciwin);
-            }
-            if ($('.a').val() === '') {
-                tTT.firstTurn = ("Cross' turn");
-                $('h2').html(tTT.firstTurn);
-            }
-            else { 
-                turn = $('.a').val() + "'s turn";
-                tTT.firstTurn = turn;
-                $('h2').html(turn);
-                crwin = $('.a').val() + "'s wins: " + tTT.cr;
-                $('#crwins').html(crwin);
-            }
-            this.playerTurn += 1
-            if (this.x % 2 == 0) {
-                $(div).addClass('cross');
-                this.x += 1; 
-                $('h2').html(this.secondTurn);
-            }
-            else {
-                $(div).addClass('circle');
-                this.x += 1;
-                $('h2').html(this.firstTurn);
-            } 
-            if (this.playerTurn === 9) {
+            for (let i = 0; i < iD.length; i++) {
+                let winCheck = iD[i];
+                let result = this.playerSquareResults[winCheck][playerTurn] += 1;
+                let line = '.' + (Number(winCheck));
+                console.log(line);
+                if (result === 3) {
+                    if (winCheck < 4) {
+                        $(line).show().animate({width: '630px'}, 5);
+                    }
+                    else if (winCheck < 7) {
+                        $(line).show().animate({height: '630px'}, 2000);
+                    }
+                    if (winCheck == 7) {
+                        $('.8').show().animate({height: '800px', marginLeft: '327px', marginTop: '-105px'}, 1300);
+                    }
+                    if (winCheck == 8) {
+                        $('.7').show().animate({height: '800px', marginLeft: '290px', marginTop: '-105px'}, 1300);
+                    }
+                    $('.tttsquares').prop('disabled', true);
+                    $('#again').show();
+                    $('#again').animate({height: '30px', width: '100px', margin: '10px'}, 2000);
+
+                    this.winner[playerTurn][1] += 1;
+                    $('h2').html(`Game over, ${ this.customName[playerTurn] } won`);
+                    winnerID = '#' + this.winner[playerTurn][0] + 'wins';
+                    winnerHTML = this.customName[playerTurn] + ' wins: ' + this.winner[playerTurn][1];
+                    $(winnerID).html(winnerHTML);
+                    return line;
+                }
+            } if (this.x % 2 === 0) {$('h2').html(this.firstTurn)} else {$('h2').html(this.secondTurn)};
+            if (this.x === 9) {
                 $('h2').html('Tie!');
                 $('#again').show();
                 $('#again').animate({height: '30px', width: '100px', margin: '10px'}, 2000);
             }
-            let obj = ($(div).attr('class').split(' ')[4]);
-            this.rowCheck('.one', '.first', '.second', '.third', obj);
-            this.rowCheck('.two', '.fourth', '.fifth', '.sixth', obj);
-            this.rowCheck('.three', '.seventh', '.eighth', '.nineth', obj);
-            this.rowCheck('.four', '.first', '.fourth', '.seventh', obj);
-            this.rowCheck('.five', '.second', '.fifth', '.eighth', obj);
-            this.rowCheck('.six', '.third', '.sixth', '.nineth', obj);
-            this.rowCheck('.seven', '.third', '.fifth', '.seventh', obj);
-            this.rowCheck('.eight', '.first', '.fifth', '.nineth', obj);
         },
-        // 6
-        // 15
-        // 24
-        // 12
-        // 15
-        // 18
-        // 15
-        // 15
     };
 
-    const enable = function (a, state) {
-        if (a === 1) {
-
-            $('#cross').prop('disabled', state);
-            $('#circle').prop('disabled', state);
-        }
-        if (a === 0) {
-
-            $('.first').prop('disabled', state);
-            $('.second').prop('disabled', state);
-            $('.third').prop('disabled', state);
-            $('.fourth').prop('disabled', state);
-            $('.fifth').prop('disabled', state);
-            $('.sixth').prop('disabled', state);
-            $('.seventh').prop('disabled', state);
-            $('.eighth').prop('disabled', state);
-            $('.nineth').prop('disabled', state);
-        }
-    }
-
-    enable(0, true);
+    $('.tttsquares').prop('disabled', true);
 
     $('#cross').on('click', function () {
-        tTT.x = 0;
-        enable(0, false);
-        enable(1, true);
-        if ($('.a').val() === '') {
-            $('h2').html("Cross' turn");
-        }
-        else { 
-            turn = $('.a').val() + "'s turn";
-            $('h2').html(turn);
-            crwin = $('.a').val() + "'s wins: " + tTT.cr;
-            $('#crwins').html(crwin);
-        }
-        if ($('.b').val() !== '') {
-            ciwin = $('.b').val() + "'s wins: " + tTT.ci;
-            $('#ciwins').html(ciwin);
-        };
+        tTT.x = 1;
+        $('.tttsquares').prop('disabled', false);
+        $('.player').prop('disabled', true);
+        tTT.determineTurnName('.one', '.two', this, 0);
+        tTT.playerTurn = 1;
     });
 
     $('#circle').on('click', function () {
-        tTT.x = 1;
-        enable(0, false);
-        enable(1, true);
-        if ($('.b').val() === '') {
-            $('h2').html("Circle's' turn");
-        }
-        else { 
-            turn = $('.b').val() + "'s turn";
-            $('h2').html(turn);
-            ciwin = $('.b').val() + "'s wins: " + tTT.ci;
-            $('#ciwins').html(ciwin);
-        }
-        if ($('.a').val() !== '') {
-            crwin = $('.a').val() + "'s wins: " + tTT.cr;
-            $('#crwins').html(crwin);
-        };
+        tTT.x = 0;
+        $('.tttsquares').prop('disabled', false);
+        $('.player').prop('disabled', true);
+        tTT.determineTurnName('.two', '.one', this, 1);
+        tTT.playerTurn = 0;
+        
     });
 
     $('.tttsquares').on('click', function () {
         
         $(this).hide();
-        tTT.squareResult(this);  
-        if ($('.a').val() !== '' && $(this).hasClass('cross')) {
-            $('.cross').css('background', "none");
-            text = $('<h4></h4>').text($('.a').val());
-            $(this).html(text);
+        tTT.playerTurn = 1 - tTT.playerTurn;
+        tTT.rowCheck($(this).attr('id'), tTT.playerTurn, this)
+
+        if ($('.one').val() !== '') {
+            $(this).html(this.customNameOne);
         };
-        if ($('.b').val() !== '' && $(this).hasClass('circle')) {
-            $('.circle').css('background', 'none');
-            text = $('<h4></h4>').text($('.b').val());
-            $(this).html(text);
+        if ($('.two').val() !== '') {
+            $(this).html(this.customNameTwo);
         };
         $(this).fadeIn(500);
         $(this).prop('disabled', true);  
@@ -184,8 +130,8 @@ $(document).ready(function () {
     
 
     $('.reset').on('click', function () {
-        enable(0, true);
-        enable(1, false);
+        $('.tttsquares').prop('disabled', true);
+        $('.player').prop('disabled', false);
         $('.cross').css('background', "");
         $('.circle').css('background', "");
         $('.tttsquares').removeClass('cross');
@@ -201,14 +147,16 @@ $(document).ready(function () {
         $('#again').css('height', '');
         $('#again').css('width', '');
         $('#again').css('margin', '');
-        $('.tttsquares').html('');
+        $('h4').remove();
+        tTT.playerSquareResults = {1: [0, 0], 2:[0, 0], 3:[0, 0], 4:[0, 0], 5:[0, 0], 6:[0, 0], 7:[0, 0], 8:[0, 0] };
+        tTT.x = 0;
+        tTT.customName = ['cross', 'circle'];
     });
 
     $('#fullreset').on('click', function () {
-        $('#crwins').html("Cross' wins: 0")
-        $('#ciwins').html("Circle's wins: 0")
-        tTT.cr = 0;
-        tTT.ci = 0;
+        $('#crosswins').html("cross wins: 0")
+        $('#circlewins').html("circle wins: 0")
+        tTT.winner = {0: ['cross', 0], 1: ['circle', 0]};
     })
 
 
