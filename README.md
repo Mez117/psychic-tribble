@@ -13,7 +13,7 @@ A twist on a classic Tic Tac Toe game with the ability to customize your player
 - Choose which player goes first (read next 3 steps before choosing)
 - Option 1: leave the text box empty and choose who starts: cross or circle, which will start a regular tic tac toe game.
 - Option 2: write a name in the text box in order to pick a custom name for your player. Then click on the corresponding 'cross' or 'circle' button to choose who starts.
-- Option 3: copy an external image source and paste it into the text box, repeat the same process as option 2 which will now change your character to an image.
+- Option 3: copy an external image source and paste it into the text box. Then click on the corresponding 'cross' or 'circle' button to choose who starts.
 - NOTE: both characters can be either default, name or image. They do not need to be the same variable.
 - Now click on any one of the squares attempting to get 3 in a row diagonally, horizontally or vertically.
 - After each turn, the text will display who's turn it is next and allow you to keep track.
@@ -45,7 +45,7 @@ A twist on a classic Tic Tac Toe game with the ability to customize your player
 - How to create a game that keeps track of values and can be played continuously.
 - How to change values and images dependant on the users input.
 
-## :check_mark: Future features
+## :heavy_check_mark: Future features
 - More reactive animations and styling.
 - 4x4 and 5x5 game modes.
 - Navigation bar to change between 3x3 and 4x4.
