@@ -42,7 +42,6 @@ $(document).ready(function () {
         rowCheck: function (iD, playerTurn, div) {
             this.x += 1;
             let checkURL = this.customName[playerTurn].slice(-3);
-            console.log(checkURL)
             $(div).addClass(this.winner[playerTurn][0]);
             if (this.customName[playerTurn] !== 'circle' && this.customName[playerTurn] !== 'cross') {
                 removal = '.' + this.winner[playerTurn][0];
@@ -58,7 +57,6 @@ $(document).ready(function () {
                 let winCheck = iD[i];
                 let result = this.playerSquareResults[winCheck][playerTurn] += 1;
                 let line = '.' + (Number(winCheck));
-                console.log(line);
                 if (result === 3) {
                     if (winCheck < 4) {
                         $(line).show().animate({width: '630px'}, 5);
@@ -67,10 +65,10 @@ $(document).ready(function () {
                         $(line).show().animate({height: '630px'}, 2000);
                     }
                     if (winCheck == 7) {
-                        $('.8').show().animate({height: '800px', marginLeft: '327px', marginTop: '-105px'}, 1300);
+                        $('.8').show().animate({height: '800px', marginLeft: '318px', marginTop: '-105px'}, 1300);
                     }
                     if (winCheck == 8) {
-                        $('.7').show().animate({height: '800px', marginLeft: '290px', marginTop: '-105px'}, 1300);
+                        $('.7').show().animate({height: '800px', marginLeft: '283px', marginTop: '-105px'}, 1300);
                     }
                     $('.tttsquares').prop('disabled', true);
                     $('#again').show();
